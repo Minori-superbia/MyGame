@@ -42,6 +42,8 @@ public:
     CREATE_FUNC(HelloWorld);
 
 	cocos2d::Sprite* sprite;
+	float opacity;
+	float alpha;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

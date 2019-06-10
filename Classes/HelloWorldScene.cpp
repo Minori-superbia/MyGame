@@ -112,10 +112,13 @@ bool HelloWorld::init()
 	//回転角を指定（45度）
 	//sprite->setRotation(45.0f);
 	//sprite->setColor(Color3B(0x0, 0x00, 0xff));
-	sprite->setOpacity(0x80);
-
+	////透明度
+	//sprite->setOpacity(0x80);
+	opacity = 255;
+	sprite->setOpacity(opacity);
 	//update関数を有効にする	
 	this->scheduleUpdate();
+	alpha = 1.0f;
 	return true;
 }
 
@@ -137,15 +140,15 @@ void HelloWorld::update(float delta) {
 	//ここに更新処理を書く
 	//スプライトの現在座標を取得
 	Vec2 pos = sprite->getPosition();
-	//座標を移動させ宇r
-	pos += Vec2(-1.0f, 0.0f);
-	//移動後の座標を反映
-	sprite->setPosition(pos);
-
-	auto count = delta;
-	
-	if ((int)count % 300 >= 0.0f) {
-		
-	}
-	
+	////座標を移動させる
+	//pos += Vec2(-1.0f, 0.0f);
+	////移動後の座標を反映
+	//sprite->setPosition(pos);
+	//255を300回に分けて減らす
+	opacity -= 255.0f / 300.0f;
+	//if (opacity == 0 ) {
+	//	alpha *= -1;
+	//}
+	//opacity -= alpha;
+	sprite->setOpacity(opacity);
 }
