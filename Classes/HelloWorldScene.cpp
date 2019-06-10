@@ -114,11 +114,12 @@ bool HelloWorld::init()
 	//sprite->setColor(Color3B(0x0, 0x00, 0xff));
 	////“§–¾“x
 	//sprite->setOpacity(0x80);
-	opacity = 255;
-	sprite->setOpacity(opacity);
+	//opacity = 255;
+	//alpha = 1.0f;
+	//sprite->setOpacity(opacity);
 	//updateŠÖ”‚ð—LŒø‚É‚·‚é	
 	this->scheduleUpdate();
-	alpha = 1.0f;
+	state = 0;
 	return true;
 }
 
@@ -145,10 +146,42 @@ void HelloWorld::update(float delta) {
 	////ˆÚ“®Œã‚ÌÀ•W‚ð”½‰f
 	//sprite->setPosition(pos);
 	//255‚ð300‰ñ‚É•ª‚¯‚ÄŒ¸‚ç‚·
-	opacity -= 255.0f / 300.0f;
+	//opacity -= 255.0f / 300.0f;
 	//if (opacity == 0 ) {
 	//	alpha *= -1;
 	//}
 	//opacity -= alpha;
-	sprite->setOpacity(opacity);
+	//sprite->setOpacity(opacity);
+
+	switch (state) {
+	case 0:
+		if (pos.x <= 0) {
+			state = 1;
+			break;
+		}
+		pos -= Vec2(5.0f, 0.0f);
+		break;
+	case 1:
+		if (pos.y <= 0) {
+			state = 2;
+			break;
+		}
+		pos -= Vec2(0.0f, 5.0f);
+		break;
+	case 2:
+		if (pos.x >= 1280) {
+			state = 3;
+			break;
+		}
+		pos += Vec2(5.0f, 0.0f);
+		break;
+	case 3:
+		if (pos.y >= 720) {
+			state = 0;
+			break;
+		}
+		pos += Vec2(0.0f, 5.0f);
+		break;
+	}
+	sprite->setPosition(pos);
 }
