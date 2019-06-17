@@ -54,6 +54,7 @@ bool HelloWorld::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	colormov = 0;
+	colormov = 255.0f / 180.0f;
 
 	/////////////////////////////
 	// 2. add a menu item with "X" image, which is clicked to quit the program
@@ -81,7 +82,7 @@ bool HelloWorld::init()
 	// create menu, it's an autorelease object
 	auto menu = Menu::create(closeItem, NULL);
 	menu->setPosition(Vec2::ZERO);
-	this->addChild(menu, 1);
+	this->addChild(menu, 2);
 
 	/////////////////////////////
 	// 3. add your codes below...
@@ -103,39 +104,28 @@ bool HelloWorld::init()
 		// add the label as a child to this layer
 		this->addChild(label, 1);
 	}
-
+	red = 255;
+	blue = 0;
+	movcolor = Color3B(red, 0, blue);
 	sprite = Sprite::create("mychara.png");
+	//sprite2 = Sprite::create("mychara2.bmp");
+
 	//sprite2 = Sprite::create("sample03.png");
 	//sprite2->getTexture()->setAliasTexParameters();
 	//シーングラフにつなぐ
 	this->addChild(sprite);
+
 	sprite->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
 	sprite->setAnchorPoint(Vec2(0, 1));
 	//sprite2->setScale(5.0f);
 	sprite->setScale(0.5f);
+	sprite->setColor(movcolor);
 	//sprite->setTextureRect(Rect(64, 0, 32, 32));
-	
 
-	//表示座標を指定
-	//sprite->setPosition(Vec2(1280.0f / 2.0f, 720.0f / 2.0f));
-	//sprite->setAnchorPoint(Vec2(1.0f, 1.0f));
-	////回転角を指定（45度）
-	//sprite->setRotation(90.0f);
-	////反転
-	//sprite->setFlippedX(true);
-	//sprite->setColor(Color3B(0x0, 0x00, 0xff));
-	////透明度
-	//sprite->setOpacity(0x80);
-	//opacity = 255;
-	//alpha = 1.0f;
-	//sprite->setOpacity(opacity);
-	//赤
-	//sprite->setColor(Color3B(255, 0, 0));
-	//青
-	//sprite->setColor(Color3B(0, 0, 255));
 	//update関数を有効にする	
 	this->scheduleUpdate();
 	state = 0;
+	imgState = 0;
 	return true;
 }
 
@@ -157,8 +147,18 @@ void HelloWorld::update(float delta) {
 	//ここに更新処理を書く
 	//スプライトの現在座標を取得
 	//Vec2 pos = sprite->getPosition();
-	colormov -= 255.0f / 180.0f;
-	auto ang = sprite->getRotation();
-	sprite ->setRotation(ang);
 
+	auto ang = sprite->getRotation();
+	sprite->setRotation(ang);
+	if (blue <= 255 && red >= 0) {
+		blue += colormov;
+		red -= colormov;
+	}
+	else {
+		imgState = 1;
+	}
+	movcolor.b = blue;
+	movcolor.r = red;
+	sprite->setColor(movcolor);
 }
+
