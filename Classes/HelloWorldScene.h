@@ -46,6 +46,9 @@ public:
 	float colormov;
 	float red, blue;
 	cocos2d::Color3B movcolor;
+
+	//•s“§–¾“x
+	float opacity2;
 	
 	//float opacity;
 	//float alpha;

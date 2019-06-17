@@ -108,15 +108,20 @@ bool HelloWorld::init()
 	blue = 0;
 	movcolor = Color3B(red, 0, blue);
 	sprite = Sprite::create("mychara.png");
-	//sprite2 = Sprite::create("mychara2.bmp");
+	sprite2 = Sprite::create("mychara2.png");
 
 	//sprite2 = Sprite::create("sample03.png");
 	//sprite2->getTexture()->setAliasTexParameters();
 	//シーングラフにつなぐ
 	this->addChild(sprite);
+	this->addChild(sprite2);
 
 	sprite->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
-	sprite->setAnchorPoint(Vec2(0, 1));
+	//sprite->setAnchorPoint(Vec2(0, 1));
+
+	sprite2->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
+	//sprite2->setAnchorPoint(Vec2(0, 1));
+
 	//sprite2->setScale(5.0f);
 	sprite->setScale(0.5f);
 	sprite->setColor(movcolor);
@@ -126,6 +131,7 @@ bool HelloWorld::init()
 	this->scheduleUpdate();
 	state = 0;
 	imgState = 0;
+	opacity2 = 0;
 	return true;
 }
 
@@ -147,7 +153,12 @@ void HelloWorld::update(float delta) {
 	//ここに更新処理を書く
 	//スプライトの現在座標を取得
 	//Vec2 pos = sprite->getPosition();
-
+	opacity2 += 1.0f;
+	if (opacity2 > 255.0f) {
+		opacity2 = 255.0f;
+	}
+	sprite->setOpacity(255.0f - opacity2);
+	sprite2->setOpacity(opacity2);
 	auto ang = sprite->getRotation();
 	sprite->setRotation(ang);
 	if (blue <= 255 && red >= 0) {
