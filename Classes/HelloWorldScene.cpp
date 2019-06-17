@@ -51,8 +51,9 @@ bool HelloWorld::init()
 		return false;
 	}
 
-	auto visibleSize = Director::getInstance()->getVisibleSize();
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	colormov = 0;
 
 	/////////////////////////////
 	// 2. add a menu item with "X" image, which is clicked to quit the program
@@ -104,19 +105,34 @@ bool HelloWorld::init()
 	}
 
 	sprite = Sprite::create("mychara.png");
+	//sprite2 = Sprite::create("sample03.png");
+	//sprite2->getTexture()->setAliasTexParameters();
 	//シーングラフにつなぐ
 	this->addChild(sprite);
+	sprite->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
+	sprite->setAnchorPoint(Vec2(0, 1));
+	//sprite2->setScale(5.0f);
+	sprite->setScale(0.5f);
+	//sprite->setTextureRect(Rect(64, 0, 32, 32));
+	
 
 	//表示座標を指定
-	sprite->setPosition(Vec2(1280.0f, 720.0f));
-	//回転角を指定（45度）
-	//sprite->setRotation(45.0f);
+	//sprite->setPosition(Vec2(1280.0f / 2.0f, 720.0f / 2.0f));
+	//sprite->setAnchorPoint(Vec2(1.0f, 1.0f));
+	////回転角を指定（45度）
+	//sprite->setRotation(90.0f);
+	////反転
+	//sprite->setFlippedX(true);
 	//sprite->setColor(Color3B(0x0, 0x00, 0xff));
 	////透明度
 	//sprite->setOpacity(0x80);
 	//opacity = 255;
 	//alpha = 1.0f;
 	//sprite->setOpacity(opacity);
+	//赤
+	//sprite->setColor(Color3B(255, 0, 0));
+	//青
+	//sprite->setColor(Color3B(0, 0, 255));
 	//update関数を有効にする	
 	this->scheduleUpdate();
 	state = 0;
@@ -140,48 +156,9 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 void HelloWorld::update(float delta) {
 	//ここに更新処理を書く
 	//スプライトの現在座標を取得
-	Vec2 pos = sprite->getPosition();
-	////座標を移動させる
-	//pos += Vec2(-1.0f, 0.0f);
-	////移動後の座標を反映
-	//sprite->setPosition(pos);
-	//255を300回に分けて減らす
-	//opacity -= 255.0f / 300.0f;
-	//if (opacity == 0 ) {
-	//	alpha *= -1;
-	//}
-	//opacity -= alpha;
-	//sprite->setOpacity(opacity);
+	//Vec2 pos = sprite->getPosition();
+	colormov -= 255.0f / 180.0f;
+	auto ang = sprite->getRotation();
+	sprite ->setRotation(ang);
 
-	switch (state) {
-	case 0:
-		if (pos.x <= 0) {
-			state = 1;
-			break;
-		}
-		pos -= Vec2(5.0f, 0.0f);
-		break;
-	case 1:
-		if (pos.y <= 0) {
-			state = 2;
-			break;
-		}
-		pos -= Vec2(0.0f, 5.0f);
-		break;
-	case 2:
-		if (pos.x >= 1280) {
-			state = 3;
-			break;
-		}
-		pos += Vec2(5.0f, 0.0f);
-		break;
-	case 3:
-		if (pos.y >= 720) {
-			state = 0;
-			break;
-		}
-		pos += Vec2(0.0f, 5.0f);
-		break;
-	}
-	sprite->setPosition(pos);
 }

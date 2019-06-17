@@ -42,6 +42,8 @@ public:
 	CREATE_FUNC(HelloWorld);
 
 	cocos2d::Sprite* sprite;
+	cocos2d::Sprite* sprite2;
+	int colormov;
 	//float opacity;
 	//float alpha;
 	//ˆÚ“®•û–@ 0:left 1:down 2:right 3: up
