@@ -105,15 +105,15 @@ bool HelloWorld::init()
 
 	//—”‚Ì‰Šú‰»
 	srand(time(nullptr));
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 10; i++) {
 
 		float mx, my;
-		mx = (float)rand() / RAND_MAX * 500;
+		mx = (float)rand() / RAND_MAX * 1000;
 		my = (float)rand() / RAND_MAX * 500;
 		sprite[i] = Sprite::create("mychara.png");
 		this->addChild(sprite[i]);
 		sprite[i]->setPosition(Vec2(mx, my));
-		sprite[i]->setScale(0.5);
+		sprite[i]->setScale(0.2);
 		JumpTo* action1 = JumpTo::create(5.0f, Vec2(mx, my),30.0f,4);
 		sprite[i]->runAction(action1);
 	}
