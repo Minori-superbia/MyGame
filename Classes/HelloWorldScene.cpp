@@ -105,49 +105,18 @@ bool HelloWorld::init()
 
 	//乱数の初期化
 	srand(time(nullptr));
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 2; i++) {
 
-		sprite[i] = Sprite::create("mychara.png");
-		this->addChild(sprite[i]);
-		sprite[i]->setPosition(Vec2(200 * i, visibleSize.height / 2.0f));
-		sprite[i]->setScale(0.5);
 		float mx, my;
 		mx = (float)rand() / RAND_MAX * 500;
 		my = (float)rand() / RAND_MAX * 500;
-		MoveBy* action1 = MoveBy::create(1.0f, Vec2(mx, my));
+		sprite[i] = Sprite::create("mychara.png");
+		this->addChild(sprite[i]);
+		sprite[i]->setPosition(Vec2(mx, my));
+		sprite[i]->setScale(0.5);
+		JumpTo* action1 = JumpTo::create(5.0f, Vec2(mx, my),30.0f,4);
 		sprite[i]->runAction(action1);
 	}
-
-
-	//スプライトの生成
-	//sprite = Sprite::create("mychara.png");
-	//sprite2 = Sprite::create("mychara2.png");
-
-	//this->addChild(sprite);
-	//this->addChild(sprite2);
-	//sprite->setScale(0.5f);
-	//sprite2->setScale(0.5f);
-
-	//JumpTo* action1 = JumpTo::create(1.0f, Vec2(200, 100), 500.0f, 1);
-	//ccBezierConfig conf;
-	//conf.controlPoint_1 = Vec2(8000, 700);
-	//conf.controlPoint_1 = Vec2(8000, 700);
-	//conf.controlPoint_2 = Vec2(1000, 700);
-	//conf.endPosition = Vec2(1000, 360);
-	//FadeIn* action1 = FadeIn::create(50.0f);
-	//Blink* action1 = Blink::create(6.0f, 5);
-	//EaseIn* action2 = EaseIn::create(action1, 2.0f);
-
-	//BezierTo* action1 = BezierTo::create(2.0f, ccBezierConfig());
-	//sprite->runAction(action1);
-
-	////アクションの作成
-	//MoveBy* action1 = MoveBy::create(1.0f, Vec2(200, 100));
-	//sprite->runAction(action1);
-	//sprite2->runAction(action1->clone());
-	//sprite->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
-	//sprite2->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
-	//sprite->setScale(0.5f);
 
 	//update関数を有効にする	
 	this->scheduleUpdate();
