@@ -53,8 +53,6 @@ bool HelloWorld::init()
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	colormov = 0;
-	colormov = 255.0f / 180.0f;
 
 	/////////////////////////////
 	// 2. add a menu item with "X" image, which is clicked to quit the program
@@ -104,17 +102,35 @@ bool HelloWorld::init()
 		// add the label as a child to this layer
 		this->addChild(label, 1);
 	}
-	red = 255;
-	blue = 0;
-	movcolor = Color3B(red, 0, blue);
+
+	//スプライトの生成
 	sprite = Sprite::create("mychara.png");
 	sprite2 = Sprite::create("mychara2.png");
 
-	//sprite2 = Sprite::create("sample03.png");
-	//sprite2->getTexture()->setAliasTexParameters();
-	//シーングラフにつなぐ
 	this->addChild(sprite);
 	this->addChild(sprite2);
+	sprite->setScale(0.5f);
+	sprite2->setScale(0.5f);
+	//sprite2->setOpacity(0);
+
+	//JumpTo* action1 = JumpTo::create(1.0f, Vec2(200, 100), 500.0f, 1);
+	//ccBezierConfig conf;
+	//conf.controlPoint_1 = Vec2(8000, 700);
+	//conf.controlPoint_1 = Vec2(8000, 700);
+	//conf.controlPoint_2 = Vec2(1000, 700);
+	//conf.endPosition = Vec2(1000, 360);
+	//FadeIn* action1 = FadeIn::create(50.0f);
+	//Blink* action1 = Blink::create(6.0f, 5);
+	//EaseIn* action2 = EaseIn::create(action1, 2.0f);
+
+	//BezierTo* action1 = BezierTo::create(2.0f, ccBezierConfig());
+	//sprite->runAction(action1);
+
+	//アクションの作成
+	MoveBy* action1 = MoveBy::create(1.0f, Vec2(200, 100));
+	MoveBy* action2 = MoveBy::create(1.0f, Vec2(200, 100));
+	sprite->runAction(action1);
+	sprite2->runAction(action2);
 
 	sprite->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
 	//sprite->setAnchorPoint(Vec2(0, 1));
@@ -124,14 +140,10 @@ bool HelloWorld::init()
 
 	//sprite2->setScale(5.0f);
 	sprite->setScale(0.5f);
-	sprite->setColor(movcolor);
 	//sprite->setTextureRect(Rect(64, 0, 32, 32));
 
 	//update関数を有効にする	
 	this->scheduleUpdate();
-	state = 0;
-	imgState = 0;
-	opacity2 = 0;
 	return true;
 }
 
@@ -151,25 +163,5 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::update(float delta) {
 	//ここに更新処理を書く
-	//スプライトの現在座標を取得
-	//Vec2 pos = sprite->getPosition();
-	opacity2 += 1.0f;
-	if (opacity2 > 255.0f) {
-		opacity2 = 255.0f;
-	}
-	sprite->setOpacity(255.0f - opacity2);
-	sprite2->setOpacity(opacity2);
-	auto ang = sprite->getRotation();
-	sprite->setRotation(ang);
-	if (blue <= 255 && red >= 0) {
-		blue += colormov;
-		red -= colormov;
-	}
-	else {
-		imgState = 1;
-	}
-	movcolor.b = blue;
-	movcolor.r = red;
-	sprite->setColor(movcolor);
 }
 

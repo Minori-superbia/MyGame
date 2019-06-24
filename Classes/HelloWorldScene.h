@@ -43,18 +43,6 @@ public:
 
 	cocos2d::Sprite* sprite;
 	cocos2d::Sprite* sprite2;
-	float colormov;
-	float red, blue;
-	cocos2d::Color3B movcolor;
-
-	//•s“§–¾“x
-	float opacity2;
-	
-	//float opacity;
-	//float alpha;
-	//ˆÚ“®•û–@ 0:left 1:down 2:right 3: up
-	int state;
-	int imgState;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
