@@ -128,9 +128,9 @@ bool HelloWorld::init()
 
 	//ƒAƒNƒVƒ‡ƒ“‚Ìì¬
 	MoveBy* action1 = MoveBy::create(1.0f, Vec2(200, 100));
-	MoveBy* action2 = MoveBy::create(1.0f, Vec2(200, 100));
 	sprite->runAction(action1);
-	sprite2->runAction(action2);
+	sprite2->runAction(action1->clone());
+
 
 	sprite->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
 	//sprite->setAnchorPoint(Vec2(0, 1));
