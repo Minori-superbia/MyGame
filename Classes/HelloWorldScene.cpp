@@ -114,7 +114,9 @@ bool HelloWorld::init()
 		this->addChild(sprite[i]);
 		sprite[i]->setPosition(Vec2(mx, my));
 		sprite[i]->setScale(0.2);
-		JumpTo* action1 = JumpTo::create(5.0f, Vec2(mx, my),30.0f,4);
+		
+		//JumpTo* action1 = JumpTo::create(5.0f, Vec2(mx, my),30.0f,4);
+		MoveBy* action1 = MoveBy::create(5.0f, Vec2(mx, my));
 		sprite[i]->runAction(action1);
 	}
 
