@@ -103,15 +103,24 @@ bool HelloWorld::init()
 		this->addChild(label, 1);
 	}
 
-	//スプライトの生成
-	sprite = Sprite::create("mychara.png");
-	sprite2 = Sprite::create("mychara2.png");
+	for (int i = 0; i < 1; i++) {
+		sprite[i] = Sprite::create("mychara.png");
+		this->addChild(sprite[i]);
+		sprite[i]->setPosition(Vec2(200 * i, visibleSize.height / 2.0f));
+		sprite[i]->setScale(0.5);
+		MoveBy* action1 = MoveBy::create(1.0f, Vec2(200, 100));
+		sprite[i]->runAction(action1);
+	}
 
-	this->addChild(sprite);
-	this->addChild(sprite2);
-	sprite->setScale(0.5f);
-	sprite2->setScale(0.5f);
-	//sprite2->setOpacity(0);
+
+	//スプライトの生成
+	//sprite = Sprite::create("mychara.png");
+	//sprite2 = Sprite::create("mychara2.png");
+
+	//this->addChild(sprite);
+	//this->addChild(sprite2);
+	//sprite->setScale(0.5f);
+	//sprite2->setScale(0.5f);
 
 	//JumpTo* action1 = JumpTo::create(1.0f, Vec2(200, 100), 500.0f, 1);
 	//ccBezierConfig conf;
@@ -126,21 +135,13 @@ bool HelloWorld::init()
 	//BezierTo* action1 = BezierTo::create(2.0f, ccBezierConfig());
 	//sprite->runAction(action1);
 
-	//アクションの作成
-	MoveBy* action1 = MoveBy::create(1.0f, Vec2(200, 100));
-	sprite->runAction(action1);
-	sprite2->runAction(action1->clone());
-
-
-	sprite->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
-	//sprite->setAnchorPoint(Vec2(0, 1));
-
-	sprite2->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
-	//sprite2->setAnchorPoint(Vec2(0, 1));
-
-	//sprite2->setScale(5.0f);
-	sprite->setScale(0.5f);
-	//sprite->setTextureRect(Rect(64, 0, 32, 32));
+	////アクションの作成
+	//MoveBy* action1 = MoveBy::create(1.0f, Vec2(200, 100));
+	//sprite->runAction(action1);
+	//sprite2->runAction(action1->clone());
+	//sprite->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
+	//sprite2->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
+	//sprite->setScale(0.5f);
 
 	//update関数を有効にする	
 	this->scheduleUpdate();
