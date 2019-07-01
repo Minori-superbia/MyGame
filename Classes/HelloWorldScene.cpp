@@ -107,20 +107,24 @@ bool HelloWorld::init()
 	Sprite* spr = Sprite::create("HelloWorld.png");
 	this->addChild(spr);
 
+	MoveBy* moveBy = MoveBy::create(2.0f, Vec2(100.0f, 100.0f));
+
 	//アクション１の作成
 	MoveTo* moveTo = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
 	//アクション２の作成
-	JumpTo* jumpTo = JumpTo::create(1.0f, Vec2(200.0f, 200.0f), 300.0f, 2);
+	JumpBy* jumpBy = JumpBy::create(0.5f, Vec2(100.0f, 100.0f), 100.0f, 1);
 
 	TintTo* tintTo = TintTo::create(1.0f, Color3B(255, 255, 0));
 
 	//同時アクションの作成
-	Spawn* spawn = Spawn::create(jumpTo, tintTo, nullptr);//nullptrは最後につける
-	Sequence* sequence = Sequence::create(moveTo, spawn, nullptr);
+	Spawn* spawn = Spawn::create(jumpBy, tintTo, nullptr);//nullptrは最後につける
+	Sequence* sequence = Sequence::create(jumpBy, moveTo, nullptr);
 
+	//繰り返しアクションの生成
+	Repeat* repeat = Repeat::create(sequence, 3);
 
 	//同時アクションの実行
-	spr->runAction(sequence);
+	spr->runAction(repeat);
 
 	//update関数を有効にする	
 	this->scheduleUpdate();
