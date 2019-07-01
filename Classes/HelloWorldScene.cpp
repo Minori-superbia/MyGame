@@ -103,22 +103,23 @@ bool HelloWorld::init()
 		this->addChild(label, 1);
 	}
 
-	//乱数の初期化
-	srand(time(nullptr));
-	for (int i = 0; i < 1; i++) {
+	//スプライトのさk末井
+	Sprite* spr = Sprite::create("HelloWorld.png");
+	this->addChild(spr);
 
-		float mx, my;
-		mx = (float)rand() / RAND_MAX * 1000;
-		//my = (float)rand() / RAND_MAX * 500;
-		sprite[i] = Sprite::create("mychara.png");
-		this->addChild(sprite[i]);
-		sprite[i]->setPosition(Vec2(700, 10));
-		sprite[i]->setScale(0.2);
-		
-		//JumpTo* action1 = JumpTo::create(5.0f, Vec2(mx, my),30.0f,4);
-		MoveBy* action1 = MoveBy::create(10.0f, Vec2(-mx, 10));
-		sprite[i]->runAction(action1);
-	}
+	//アクション１の作成
+	MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
+	//アクション２の作成
+	JumpTo* action2 = JumpTo::create(1.0f, Vec2(200.0f, 200.0f), 300.0f, 2);
+	
+	TintTo* tintTo = TintTo::create(1.0f, Color3B(255, 255, 0));
+	
+	//同時アクションの作成
+	Spawn* action3 = Spawn::create(action1, action2, tintTo,nullptr);//nullptrは最後につける
+
+
+	//同時アクションの実行
+	spr->runAction(action3);
 
 	//update関数を有効にする	
 	this->scheduleUpdate();
