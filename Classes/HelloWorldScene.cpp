@@ -103,9 +103,12 @@ bool HelloWorld::init()
 		this->addChild(label, 1);
 	}
 
-	//スプライトのさk末井
+	//スプライトの作成
 	Sprite* spr = Sprite::create("HelloWorld.png");
 	this->addChild(spr);
+
+	////スプライトの解放
+	//this->removeFromParent();
 
 	MoveBy* moveBy = MoveBy::create(2.0f, Vec2(100.0f, 100.0f));
 
@@ -114,17 +117,29 @@ bool HelloWorld::init()
 	//アクション２の作成
 	JumpBy* jumpBy = JumpBy::create(0.5f, Vec2(100.0f, 100.0f), 100.0f, 1);
 
+
 	TintTo* tintTo = TintTo::create(1.0f, Color3B(255, 255, 0));
 
 	//同時アクションの作成
 	Spawn* spawn = Spawn::create(jumpBy, tintTo, nullptr);//nullptrは最後につける
-	Sequence* sequence = Sequence::create(jumpBy, moveTo, nullptr);
+	//Sequence* sequence = Sequence::create(jumpBy, moveTo, nullptr);
+	//指定秒数待つアクションの生成
+	//DelayTime* delay = DelayTime::create(1.0f);
+
+	//表示のON/OFF切り替え
+	//Hide* hide = Hide::create();
+	//ToggleVisibility* toggle = ToggleVisibility::create();
 
 	//繰り返しアクションの生成
-	Repeat* repeat = Repeat::create(sequence, 3);
+	//RepeatForever* repeat = RepeatForever::create(sequence);
+	//Sequence* sequence2 = Sequence::create(delay, toggle, nullptr);
+	//RemoveSelf* remove = RemoveSelf::create();
+	//Sequence* sequence3 = Sequence::create(moveTo, delay, remove, nullptr);
+	Repeat* repeat2 = Repeat::create(sequence,6);
 
 	//同時アクションの実行
-	spr->runAction(repeat);
+	spr->runAction(sequence3);
+
 
 	//update関数を有効にする	
 	this->scheduleUpdate();
