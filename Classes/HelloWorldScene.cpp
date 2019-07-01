@@ -121,10 +121,11 @@ bool HelloWorld::init()
 	Spawn* moveIn = Spawn::create(returnMove, fadeIn, nullptr);
 	Sequence* sequence = Sequence::create(moveOut,moveIn, nullptr);
 
+	Repeat* repeat = Repeat::create(sequence, 5);
 
 
 	//同時アクションの実行
-	spr->runAction(sequence);
+	spr->runAction(repeat);
 
 
 	//update関数を有効にする	
