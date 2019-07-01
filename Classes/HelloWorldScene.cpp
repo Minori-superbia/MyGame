@@ -106,26 +106,20 @@ bool HelloWorld::init()
 	//スプライトの作成
 	Sprite* spr = Sprite::create("mychara.png");
 	spr->setScale(0.3);
-	Vec2 startpos = Vec2(1000, 700);
+
+	Vec2 startpos = Vec2(visibleSize.width, visibleSize.height);
 	spr->setPosition(startpos);
 	this->addChild(spr);
 
-	////スプライトの解放
-	//this->removeFromParent();
-
-	MoveTo* moveTo = MoveTo::create(5.0f, Vec2(100.0f, 700));
-	MoveTo* returnMove = MoveTo::create(5.0f, startpos);
-	FadeOut* fadeOut = FadeOut::create(5.0f);
-	FadeIn* fadeIn = FadeIn::create(5.0f);
-	Spawn* moveOut = Spawn::create(moveTo, fadeOut, nullptr);
-	Spawn* moveIn = Spawn::create(returnMove, fadeIn, nullptr);
-	Sequence* sequence = Sequence::create(moveOut,moveIn, nullptr);
-
-	Repeat* repeat = Repeat::create(sequence, 5);
-
+	MoveTo* moveLeft = MoveTo::create(5.0f, Vec2(0, startpos.y));
+	MoveTo* moveDown = MoveTo::create(5.0f, Vec2(0, 0));
+	MoveTo* moveRight = MoveTo::create(5.0f, Vec2(startpos.x, 0));
+	MoveTo* moveUp = MoveTo::create(5.0f, startpos);
+	Sequence* sequence = Sequence::create(moveLeft, moveDown, moveRight, moveUp, nullptr);
+	RepeatForever* repForever = RepeatForever::create(sequence);
 
 	//同時アクションの実行
-	spr->runAction(repeat);
+	spr->runAction(repForever);
 
 
 	//update関数を有効にする	
