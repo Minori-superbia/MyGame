@@ -115,7 +115,7 @@ bool HelloWorld::init()
 	TintTo* tintTo = TintTo::create(1.0f, Color3B(255, 255, 0));
 	
 	//同時アクションの作成
-	Spawn* action3 = Spawn::create(action1, action2, tintTo,nullptr);//nullptrは最後につける
+	Sequence* action3 = Sequence::create(action1, action2, tintTo,nullptr);//nullptrは最後につける
 
 
 	//同時アクションの実行
