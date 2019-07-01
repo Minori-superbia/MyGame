@@ -104,41 +104,27 @@ bool HelloWorld::init()
 	}
 
 	//スプライトの作成
-	Sprite* spr = Sprite::create("HelloWorld.png");
+	Sprite* spr = Sprite::create("mychara.png");
+	spr->setScale(0.3);
+	Vec2 startpos = Vec2(1000, 700);
+	spr->setPosition(startpos);
 	this->addChild(spr);
 
 	////スプライトの解放
 	//this->removeFromParent();
 
-	MoveBy* moveBy = MoveBy::create(2.0f, Vec2(100.0f, 100.0f));
+	MoveTo* moveTo = MoveTo::create(5.0f, Vec2(100.0f, 700));
+	MoveTo* returnMove = MoveTo::create(5.0f, startpos);
+	FadeOut* fadeOut = FadeOut::create(5.0f);
+	FadeIn* fadeIn = FadeIn::create(5.0f);
+	Spawn* moveOut = Spawn::create(moveTo, fadeOut, nullptr);
+	Spawn* moveIn = Spawn::create(returnMove, fadeIn, nullptr);
+	Sequence* sequence = Sequence::create(moveOut,moveIn, nullptr);
 
-	//アクション１の作成
-	MoveTo* moveTo = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
-	//アクション２の作成
-	JumpBy* jumpBy = JumpBy::create(0.5f, Vec2(100.0f, 100.0f), 100.0f, 1);
 
-
-	TintTo* tintTo = TintTo::create(1.0f, Color3B(255, 255, 0));
-
-	//同時アクションの作成
-	Spawn* spawn = Spawn::create(jumpBy, tintTo, nullptr);//nullptrは最後につける
-	//Sequence* sequence = Sequence::create(jumpBy, moveTo, nullptr);
-	//指定秒数待つアクションの生成
-	//DelayTime* delay = DelayTime::create(1.0f);
-
-	//表示のON/OFF切り替え
-	//Hide* hide = Hide::create();
-	//ToggleVisibility* toggle = ToggleVisibility::create();
-
-	//繰り返しアクションの生成
-	//RepeatForever* repeat = RepeatForever::create(sequence);
-	//Sequence* sequence2 = Sequence::create(delay, toggle, nullptr);
-	//RemoveSelf* remove = RemoveSelf::create();
-	//Sequence* sequence3 = Sequence::create(moveTo, delay, remove, nullptr);
-	Repeat* repeat2 = Repeat::create(sequence,6);
 
 	//同時アクションの実行
-	spr->runAction(sequence3);
+	spr->runAction(sequence);
 
 
 	//update関数を有効にする	
