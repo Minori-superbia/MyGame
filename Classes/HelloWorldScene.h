@@ -39,26 +39,8 @@ public:
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
     
-	void SceneEnd();
-	void NextScene();
-	void GameEnd();
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
-
-	bool sceneFinish = false;
-	cocos2d::Sprite* kirby;
-	cocos2d::Sprite* dedede;
-	cocos2d::Sprite* wady;
-
-	cocos2d::Sprite* bg_Station_back;
-	cocos2d::Sprite* bg_Station_front;
-	cocos2d::Sprite* train;
-	cocos2d::Sprite* field;
-	cocos2d::Sprite* lunchbox_humburg;
-	cocos2d::Sprite* lunchbox_cute;
-	cocos2d::Sprite* sheet_blue;
-
-	cocos2d::Vec2 centerPos;
 
 };
 
