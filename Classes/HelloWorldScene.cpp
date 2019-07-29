@@ -143,21 +143,27 @@ void HelloWorld::update(float delta) {
 bool HelloWorld::onTouchBegan(Touch *touch, Event *unused_event) {
 	//タッチ座標を取得
 	Vec2 touch_pos = touch->getLocation();
-	sprite = Sprite::create("mychara2.png");
-	sprite->setScale(0.3f);
-	sprite->setPosition(touch_pos);
-	this->addChild(sprite);
+
+	//モーションストリークを作成して、メンバ変数に保存
+	//フェード時間、表示が始まる為の移動距離、画像のサイズ、色、画像ファイル
+	m_pStreak = MotionStreak::create(0.5f, 1.0f, 20.0f, Color3B(0xff, 0xff, 0xff), "CloseNormal.png");
+	m_pStreak->setPosition(touch_pos);
+	this->addChild(m_pStreak);
 	return true;
 }
 
 void HelloWorld::onTouchMoved(Touch *touch, Event *unused_event) {
 	Vec2 touch_pos = touch->getLocation();
-	sprite->setPosition(touch_pos);
+	m_pStreak->setPosition(touch_pos);
 }
 
 void HelloWorld::onTouchEnded(Touch *touch, Event *unused_event) {
-	Vec2 touch_pos = touch->getLocation();
-	sprite->removeFromParent();
+	if (m_pStreak != nullptr) {
+		//親から切り離して解放
+		m_pStreak->removeFromParent();
+		m_pStreak = nullptr;
+	}
+	
 }
 
 void HelloWorld::onTouchCancelled(Touch *touch, Event *unused_event) {
