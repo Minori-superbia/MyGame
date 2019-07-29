@@ -144,7 +144,6 @@ void HelloWorld::update(float delta) {
 bool HelloWorld::onTouchBegan(Touch *touch, Event *unused_event) {
 	//タッチ座標を取得
 	Vec2 touch_pos = touch->getLocation();
-	sprite->setPosition(touch_pos);
 	return true;
 }
 
@@ -154,7 +153,7 @@ void HelloWorld::onTouchMoved(Touch *touch, Event *unused_event) {
 
 void HelloWorld::onTouchEnded(Touch *touch, Event *unused_event) {
 	Vec2 touch_pos = touch->getLocation();
-
+	sprite->setPosition(touch_pos);
 }
 
 void HelloWorld::onTouchCancelled(Touch *touch, Event *unused_event) {
