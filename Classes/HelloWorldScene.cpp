@@ -102,28 +102,24 @@ bool HelloWorld::init()
 		// add the label as a child to this layer
 		this->addChild(label, 1);
 	}
+	sprite = Sprite::create("mychara2.png");
+	sprite->setScale(0.3f);
+	this->addChild(sprite);
 
-	//スプライトの作成
-	Sprite* spr = Sprite::create("mychara.png");
-	spr->setScale(0.3);
 
-	Vec2 startpos = Vec2(visibleSize.width, visibleSize.height);
-	spr->setPosition(startpos);
-	this->addChild(spr);
-
-	MoveTo* moveLeft = MoveTo::create(5.0f, Vec2(0, startpos.y));
-	MoveTo* moveDown = MoveTo::create(5.0f, Vec2(0, 0));
-	MoveTo* moveRight = MoveTo::create(5.0f, Vec2(startpos.x, 0));
-	MoveTo* moveUp = MoveTo::create(5.0f, startpos);
-	Sequence* sequence = Sequence::create(moveLeft, moveDown, moveRight, moveUp, nullptr);
-	RepeatForever* repForever = RepeatForever::create(sequence);
-
-	//同時アクションの実行
-	spr->runAction(repForever);
-
+	//イベントリスナーを作成する
+	EventListenerTouchOneByOne* listener = EventListenerTouchOneByOne::create();
+	//イベントリスナーに各コールバック関数をセットする
+	listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
+	listener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
+	listener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
+	listener->onTouchCancelled = CC_CALLBACK_2(HelloWorld::onTouchCancelled, this);
+	//イベントリスナーを登録する
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 	//update関数を有効にする	
 	this->scheduleUpdate();
+	
 	return true;
 }
 
@@ -144,4 +140,26 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 void HelloWorld::update(float delta) {
 	//ここに更新処理を書く
 }
+
+bool HelloWorld::onTouchBegan(Touch *touch, Event *unused_event) {
+	//タッチ座標を取得
+	Vec2 touch_pos = touch->getLocation();
+	sprite->setPosition(touch_pos);
+	return true;
+}
+
+void HelloWorld::onTouchMoved(Touch *touch, Event *unused_event) {
+
+}
+
+void HelloWorld::onTouchEnded(Touch *touch, Event *unused_event) {
+	Vec2 touch_pos = touch->getLocation();
+
+}
+
+void HelloWorld::onTouchCancelled(Touch *touch, Event *unused_event) {
+
+}
+
+
 
