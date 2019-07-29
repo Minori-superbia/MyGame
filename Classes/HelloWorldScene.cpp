@@ -82,6 +82,8 @@ bool HelloWorld::init()
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 2);
 
+
+
 	/////////////////////////////
 	// 3. add your codes below...
 
@@ -102,9 +104,6 @@ bool HelloWorld::init()
 		// add the label as a child to this layer
 		this->addChild(label, 1);
 	}
-	sprite = Sprite::create("mychara2.png");
-	sprite->setScale(0.3f);
-	this->addChild(sprite);
 
 
 	//イベントリスナーを作成する
@@ -144,7 +143,10 @@ void HelloWorld::update(float delta) {
 bool HelloWorld::onTouchBegan(Touch *touch, Event *unused_event) {
 	//タッチ座標を取得
 	Vec2 touch_pos = touch->getLocation();
+	sprite = Sprite::create("mychara2.png");
+	sprite->setScale(0.3f);
 	sprite->setPosition(touch_pos);
+	this->addChild(sprite);
 	return true;
 }
 
@@ -155,6 +157,7 @@ void HelloWorld::onTouchMoved(Touch *touch, Event *unused_event) {
 
 void HelloWorld::onTouchEnded(Touch *touch, Event *unused_event) {
 	Vec2 touch_pos = touch->getLocation();
+	sprite->removeFromParent();
 }
 
 void HelloWorld::onTouchCancelled(Touch *touch, Event *unused_event) {
